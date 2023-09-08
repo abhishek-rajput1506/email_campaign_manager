@@ -1,35 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Campaign List</title>
-</head>
 <body>
-    <h1>Campaign List</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Subject</th>
-                <th>Preview Text</th>
-                <th>Article URL</th>
-                <th>HTML CONTENT</th>
-                <th>PLAIN TEXT CONTENT</th>
-                <th>Published Date</th>
-                <th>Active</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for campaign in campaigns %}
-                <tr>
-                    <td>{{ campaign.subject }}</td>
-                    <td>{{ campaign.preview_text }}</td>
-                    <td>{{ campaign.article_url }}</td>
-                    <td>{{ campaign.html_content }}</td>
-                    <td>{{ campaign.plain_text_content }}</td>
-                    <td>{{ campaign.published_date }}</td>
-                    <td>{{ campaign.active }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+  {% for campaign in campaigns %}
+    <div>
+      <h1>{{ campaign.subject }}</h1>
+      <p>{{ campaign.preview_text }}</p>
+      <p>Published Date: {{ campaign.published_date }}</p>
+      <p>Read the full article <a href="{{ campaign.article_url }}">here</a></p>
+      <hr>
+      <i>{{ campaign.html_content }}</i>
+      <hr>
+      {{ campaign.plain_text_content }}
+    </div>
+  {% endfor %}
 </body>
 </html>
