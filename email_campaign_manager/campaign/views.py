@@ -4,11 +4,27 @@ from rest_framework.views import APIView
 
 
 from django.shortcuts import render
-from .models import Campaign
+from campaign.models import Campaign,Subscriber
 from .serializers import CampaignSerializer
+from .controller import CampaignController
 
-class Campaign(APIView):
+class CampaignView(APIView):
     def get(self, request):
         campaigns = Campaign.objects.all() 
         serializer = CampaignSerializer(campaigns, many=True)
-        return render(request, 'campaign_list.html', {'campaigns': serializer.data})
+        # subscribers = Subscriber.objects.filter(active= 1)
+        subscribers = [
+            "john.doe@example.com",
+            "jane.smith@example.net",
+            "user1234@gmail.com",
+            "test.user@email.org",
+            "admin@company.com",
+            "contact@website.net",
+            "support@example.org",
+            "info@domain.com",
+            "customer.service@emailprovider.com",
+            "developer@company.net",
+        ]
+        campaign_data = CampaignController().publish_message_to_subscribers(serializer.data, subscribers)
+        
+        return render(request, 'campaign_list.html', {'campaigns': campaign_data})
