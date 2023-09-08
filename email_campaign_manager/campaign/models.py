@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Subscriber(models.Model):
+class Subscriber(models.Model): 
     email = models.EmailField(unique=True, null=False)
     first_name = models.TextField(null=False)
     active = models.BooleanField(default=True)
@@ -21,6 +21,7 @@ class Campaign(models.Model):
     published_date = models.DateField()
     active = models.BooleanField(default=True)
 
+    objects = models.Manager()
     def __str__(self) -> str:
         return self.subject
     
