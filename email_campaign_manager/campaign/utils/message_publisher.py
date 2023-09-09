@@ -8,8 +8,8 @@ from campaign.utils.mail_util import MailUtility
 
 class MessagePublisher:
     def __init__(self, queue, no_of_threads = 4):
-        self.subscriber_queue = queue
-        self.num_threads = min(no_of_threads,self.subscriber_queue.qsize())
+        self.campaign_queue = queue
+        self.num_threads = min(no_of_threads,self.campaign_queue.qsize())
         self.email_sender = "abhishekrajput098765432@gmail.com"
 
     def start_publishing(self, recipients):
@@ -28,9 +28,9 @@ class MessagePublisher:
     def publish_message(self, recipients):
         while True:
             try:
-                campaign_data = self.subscriber_queue.get_nowait()  # Get an item from the queue
+                campaign_data = self.campaign_queue.get_nowait()  # Get an item from the queue
                 self._publish_messages(campaign_data, recipients)         # Process the item
-                self.subscriber_queue.task_done()          # Mark the item as done
+                self.campaign_queue.task_done()          # Mark the item as done
             except queue.Empty:
                 break
     
