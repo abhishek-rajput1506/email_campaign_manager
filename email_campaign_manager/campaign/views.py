@@ -22,17 +22,37 @@ class CampaignView(APIView):
         
         return render(request, 'campaign_list.html', {'campaigns': campaign_data_list})
     
-class USerView(APIView):
+class UserView(APIView):
     def put(self, request):
         email = request.data.get('email')
 
         if not email:
-            responsse = {
+            response = {
                 "status": "Failure",
                 "message": "Please provide a email"
             }
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
         
         response = SubscriberController().unsubscribe_user(email)
 
         return Response(response, status=status.HTTP_200_OK)
+    
+    def post(self, request):
+        request_data = request.data
+
+        if not request_data:
+            response = {
+                "status": "Failure",
+                "message": "Details missing"
+            }
+
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+        
+        response, error = SubscriberController().add_subscriber(request_data)
+
+        if error:
+            return Response(error, status=status.HTTP_400_BAD_REQUEST)
+        
+        return Response(response, status=status.HTTP_200_OK)
+
+        
