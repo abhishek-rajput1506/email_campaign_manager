@@ -9,10 +9,11 @@ from django.shortcuts import render
 from campaign.models import Campaign,Subscriber
 from .serializers import CampaignSerializer
 from .controller import CampaignController, SubscriberController
+from datetime import datetime
 
 class CampaignView(APIView):
     def get(self, request):
-        campaigns = Campaign.objects.all() 
+        campaigns = Campaign.objects.filter(published_date = datetime.now().date()) 
         serializer = CampaignSerializer(campaigns, many=True)
         
         subscribers = Subscriber.objects.filter(active=1).values_list("email", flat=True)

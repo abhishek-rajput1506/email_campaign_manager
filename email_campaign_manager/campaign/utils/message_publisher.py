@@ -5,6 +5,7 @@ import time
 import queue
 
 from campaign.utils.mail_util import MailUtility
+from django.conf import settings
 
 class MessagePublisher:
     def __init__(self, queue, no_of_threads = 4):
@@ -36,11 +37,11 @@ class MessagePublisher:
     
     def _publish_messages(self, campaign_data, email_recievers):
         print(threading.current_thread().name, end=' -> ') # Here
-        mail_utility = MailUtility(self.email_sender, "befsetqgncbyzznh")
+        mail_utility = MailUtility(self.email_sender, settings.MAIL_SECRET_KEY)
         smtp_obj = mail_utility.get_smtp_obj()
         em = self.prepare_message_object(campaign_data, self.email_sender, email_recievers)
         smtp_obj.sendmail(self.email_sender, email_recievers, em.as_string())
-        print(f"Sent the mail to {email_recievers}")
+        print(f"Sent the {campaign_data.get('subject')} to {email_recievers}")
         time.sleep(1)
 
     def prepare_message_object(self, campaign_data, email_sender, email_recievers):
