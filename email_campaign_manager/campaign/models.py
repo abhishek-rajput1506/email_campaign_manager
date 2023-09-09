@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 class Subscriber(models.Model): 
     email = models.EmailField(unique=True, null=False)
@@ -13,15 +13,14 @@ class Subscriber(models.Model):
         db_table = 'subscribers'
 
 class Campaign(models.Model):
-    subject = models.TextField()
+    subject = models.TextField(null=False)
     preview_text = models.TextField()
     article_url = models.TextField()
     html_content = models.TextField()
     plain_text_content = models.TextField()
-    published_date = models.DateField()
+    published_date = models.DateField(null=False, default=timezone.now)
     active = models.BooleanField(default=True)
 
-    objects = models.Manager()
     def __str__(self) -> str:
         return self.subject
     
