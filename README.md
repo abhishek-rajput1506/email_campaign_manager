@@ -28,6 +28,18 @@ INFO: To send campaign detail email to active subscribers
 curl --location 'http://127.0.0.1:8000/campaigns/send_campaign_messages/'
 ###
 
+3./campaigns/subscriber
+METHOD: POST
+INFO: To add subscriber for mails
+###
+curl --location 'http://127.0.0.1:8000/campaigns/subscriber' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email":"karthik123@gmail.com",
+    "first_name":"Karthik"
+}'
+###
+
 #Move to /email_campaign_manager
 #To install requirements RUN
 pip install -r requirements.txt
