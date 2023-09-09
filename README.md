@@ -28,7 +28,7 @@ INFO: To send campaign detail email to active subscribers
 curl --location 'http://127.0.0.1:8000/campaigns/send_campaign_messages/'
 ###
 
-
+#Move to /email_campaign_manager
 #To install requirements RUN
 pip install -r requirements.txt
 
