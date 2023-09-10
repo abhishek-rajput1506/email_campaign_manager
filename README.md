@@ -8,7 +8,7 @@ Username: admin
 password: admin
 
 
-Two end-points are exposed
+Three end-points are exposed
 1./campaigns/unsubscirbe_user' : 
 METHOD: PUT
 INFO:  To unsubscribe an user for recieving mail
